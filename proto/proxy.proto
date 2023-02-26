@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "github.com/patrick-me/tg-bot/proto/proxy";
+
+package proxy;
+
+
+service Proxy {
+  rpc Process (ProxyRequest) returns (ProxyResponse) {}
+}
+
+message ProxyRequest {
+    string message = 1;
+}
+
+message ProxyResponse {
+    string message = 1;
+}
