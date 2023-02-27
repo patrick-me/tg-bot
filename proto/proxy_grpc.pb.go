@@ -4,7 +4,7 @@
 // - protoc             v3.21.12
 // source: proxy.proto
 
-package proxy
+package proto
 
 import (
 	context "context"

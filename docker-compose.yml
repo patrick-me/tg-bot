@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  tg-bot:
+    image: patrick-me/tg-bot
+    container_name: tg-bot
+    hostname: tg-bot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SERVER_ADDR: "proxy_server:50051"
+      TELEGRAM_APITOKEN: "!BotFather-tkn!"
+
+  proxyServer:
+    image: patrick-me/tg-bot-server
+    container_name: proxy_server
+    hostname: proxy_server
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    restart: always
+
