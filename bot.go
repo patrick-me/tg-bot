@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	api "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	proxy "github.com/patrick-me/tg-bot/proto"
 	"log"
 	"os"
-	proxy "tg-bot/proto"
 	"time"
 )
 

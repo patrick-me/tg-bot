@@ -4,10 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	pb "github.com/patrick-me/tg-bot/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	pb "tg-bot/proto"
 )
 
 var (
