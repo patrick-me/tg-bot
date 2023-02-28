@@ -20,7 +20,7 @@ type server struct {
 
 func (s *server) Process(ctx context.Context, in *pb.ProxyRequest) (*pb.ProxyResponse, error) {
 	log.Printf("Received: %v", in.GetMessage())
-	return &pb.ProxyResponse{Message: "Got msg: *" + in.Message + "*"}, nil
+	return &pb.ProxyResponse{Message: "Got msg: *" + in.Message + "*", ApplyMarkdownV2: true}, nil
 }
 
 func main() {
