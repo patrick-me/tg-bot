@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
+	pb "github.com/patrick-me/tg-bot/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"os"
-	pb "tg-bot/proto"
 )
 
 var (

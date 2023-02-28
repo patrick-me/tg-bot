@@ -1,4 +1,4 @@
-module tg-bot
+module github.com/patrick-me/tg-bot
 
 go 1.20
 
