@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	api "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	proxy "github.com/patrick-me/tg-bot/proto"
+	pb "github.com/patrick-me/tg-bot/proto"
 	"log"
 	"os"
 	"time"
@@ -63,11 +63,11 @@ func sendErrorMessage(bot *api.BotAPI, update api.Update, err error) {
 	}
 }
 
-func process(msg string) (response *proxy.ProxyResponse, err error) {
+func process(msg string) (response *pb.ProxyResponse, err error) {
 	client := CreateProxyClient()
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	response, err = client.Process(ctx, &proxy.ProxyRequest{Message: msg})
+	response, err = client.Process(ctx, &pb.ProxyRequest{Message: msg})
 	if err != nil {
 		log.Printf("could not process: %v", err)
 		err = fmt.Errorf("Can't process msg:%s, err:%v", msg, err)
