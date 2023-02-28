@@ -30,22 +30,48 @@ func main() {
 		if update.Message != nil { // If we got a message
 			log.Printf("[%s] %s\n", update.Message.From.UserName, update.Message.Text)
 
-			msg := api.NewMessage(update.Message.Chat.ID, process(update.Message.Text))
+			serverMessage, err := process(update.Message.Text)
+
+			if err != nil {
+				sendErrorMessage(bot, update, err)
+			}
+
+			msg := api.NewMessage(update.Message.Chat.ID, serverMessage.GetMessage())
 			msg.ReplyToMessageID = update.Message.MessageID
-			//msg.ParseMode = "MarkdownV2"
-			bot.Send(msg)
+
+			if serverMessage.ApplyMarkdownV2 {
+				msg.ParseMode = "MarkdownV2"
+			}
+			send, err := bot.Send(msg)
+			log.Println(send)
+			if err != nil {
+				log.Println(err)
+				return
+			}
 		}
 	}
 }
 
-func process(msg string) string {
+func sendErrorMessage(bot *api.BotAPI, update api.Update, err error) {
+	msg := api.NewMessage(update.Message.Chat.ID, err.Error())
+	msg.ReplyToMessageID = update.Message.MessageID
+	send, err := bot.Send(msg)
+	log.Println(send)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
+func process(msg string) (response *proxy.ProxyResponse, err error) {
 	client := CreateProxyClient()
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := client.Process(ctx, &proxy.ProxyRequest{Message: msg})
+	response, err = client.Process(ctx, &proxy.ProxyRequest{Message: msg})
 	if err != nil {
 		log.Printf("could not process: %v", err)
-		return fmt.Sprintf("Can't process msg:%s, err:%v", msg, err)
+		err = fmt.Errorf("Can't process msg:%s, err:%v", msg, err)
+		return
 	}
-	return r.GetMessage()
+	return
 }

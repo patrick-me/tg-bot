@@ -4,15 +4,15 @@ option go_package = "github.com/patrick-me/tg-bot/proto";
 
 package proxy;
 
-
 service Proxy {
   rpc Process (ProxyRequest) returns (ProxyResponse) {}
 }
 
 message ProxyRequest {
-    string message = 1;
+  string message = 1;
 }
 
 message ProxyResponse {
-    string message = 1;
+  string message = 1;
+  bool applyMarkdownV2 = 2;
 }
