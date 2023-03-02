@@ -25,14 +25,30 @@ func (s *server) Process(ctx context.Context, in *pb.ProxyRequest) (*pb.ProxyRes
 
 func main() {
 	flag.Parse()
-	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+
+	for true {
+		saveRunner()
 	}
+}
+
+func saveRunner() {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("panic occurred:", err)
+		}
+	}()
+
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+
+	if err != nil {
+		fmt.Printf("failed to listen: %v\n", err)
+	}
+
 	s := grpc.NewServer()
 	pb.RegisterProxyServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
+
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+		fmt.Printf("failed to serve: %v\n", err)
 	}
 }
