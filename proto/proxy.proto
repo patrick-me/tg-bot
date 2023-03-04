@@ -31,6 +31,6 @@ message Row {
 }
 
 message Button {
-  string Name = 1;
-  string Value = 2;
+  string name = 1;
+  string value = 2;
 }
