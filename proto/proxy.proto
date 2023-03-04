@@ -10,9 +10,27 @@ service Proxy {
 
 message ProxyRequest {
   string message = 1;
+  string username = 2;
+  int64 messageID = 3;
+  int64 chatID = 4;
 }
 
 message ProxyResponse {
   string message = 1;
   bool applyMarkdownV2 = 2;
+  bool applyReplyMarkupKeyboard = 3;
+  Keyboard replyMarkupKeyboard = 4;
+}
+
+message Keyboard {
+  repeated Row rows = 1;
+}
+
+message Row {
+  repeated Button buttons = 1;
+}
+
+message Button {
+  string Name = 1;
+  string Value = 2;
 }
