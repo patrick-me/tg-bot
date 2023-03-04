@@ -13,6 +13,7 @@ message ProxyRequest {
   string username = 2;
   int64 messageID = 3;
   int64 chatID = 4;
+  string callbackData = 5;
 }
 
 message ProxyResponse {
