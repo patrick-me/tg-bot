@@ -13,8 +13,8 @@ to local run type: `go run bot.go`
 ## docker compose
 
 Combines 2 docker files and connect them together
-- [Dockerfile](Dockerfile)
-- [Dockerfile-server](Dockerfile-server)
+- [Dockerfile-bot](docker/Dockerfile-bot)
+- [Dockerfile-server](docker/Dockerfile-server)
 
 Also you could provide required ENV variables
 

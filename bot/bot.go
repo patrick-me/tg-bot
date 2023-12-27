@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	api "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/patrick-me/tg-bot/bot/client"
 	pb "github.com/patrick-me/tg-bot/proto"
 	"log"
 	"os"
@@ -38,7 +39,8 @@ func processCallbackQuery(bot *api.BotAPI, update api.Update) {
 
 		callback := api.NewCallback(update.CallbackQuery.ID, update.CallbackQuery.Data)
 		if _, err := bot.Request(callback); err != nil {
-			panic(err)
+			fmt.Println(err)
+			return
 		}
 		response, err := processCallback(update)
 
@@ -187,7 +189,7 @@ func sendErrorMessage(bot *api.BotAPI, update api.Update, err error) {
 }
 
 func process(update api.Update) (response *pb.ProxyResponse, err error) {
-	client := CreateProxyClient()
+	client := client.CreateProxyClient()
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -207,7 +209,7 @@ func process(update api.Update) (response *pb.ProxyResponse, err error) {
 }
 
 func processCallback(update api.Update) (response *pb.ProxyResponse, err error) {
-	client := CreateProxyClient()
+	client := client.CreateProxyClient()
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
