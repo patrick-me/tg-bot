@@ -6,7 +6,7 @@ services:
     hostname: tg-bot
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/Dockerfile-bot
     restart: always
     environment:
       SERVER_ADDR: "proxy_server:50051"
@@ -18,6 +18,6 @@ services:
     hostname: proxy_server
     build:
       context: .
-      dockerfile: Dockerfile-server
+      dockerfile: docker/Dockerfile-server
     restart: always
 
