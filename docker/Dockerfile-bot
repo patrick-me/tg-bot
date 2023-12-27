@@ -4,14 +4,13 @@ WORKDIR /bot
 #ENV TELEGRAM_APITOKEN=!BotFather-tkn!
 #ENV SERVER_ADDR=localhost:50051
 
+COPY bot.go ./
+COPY client ./client
+COPY proto ./proto
 COPY go.mod ./
-COPY go.sum ./
 
 RUN go mod download
-
-COPY bot/bot.go ./
-COPY bot/client/proxyClient.go ./
-COPY proto ./proto
+RUN go mod tidy
 
 RUN go build -o /tg-bot
 

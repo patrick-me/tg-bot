@@ -26,7 +26,7 @@ func (s *server) Process(ctx context.Context, in *pb.ProxyRequest) (*pb.ProxyRes
 func main() {
 	flag.Parse()
 
-	for true {
+	for {
 		saveRunner()
 	}
 }
@@ -48,7 +48,7 @@ func saveRunner() {
 	pb.RegisterProxyServer(s, &server{})
 	log.Printf("server listening at %v", lis.Addr())
 
-	if err := s.Serve(lis); err != nil {
+	if err = s.Serve(lis); err != nil {
 		fmt.Printf("failed to serve: %v\n", err)
 	}
 }
