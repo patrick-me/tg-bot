@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	api "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/patrick-me/tg-bot/bot/client"
+	"github.com/patrick-me/tg-bot/client"
 	pb "github.com/patrick-me/tg-bot/proto"
 	"log"
 	"os"
@@ -16,7 +16,7 @@ func main() {
 
 	bot, err := api.NewBotAPI(os.Getenv("TELEGRAM_APITOKEN"))
 	if err != nil {
-		log.Panic(err)
+		log.Panic("TELEGRAM_APITOKEN isn't found as an env variable", err)
 	}
 	bot.Debug = true
 	log.Printf("Authorized on account %s\n", bot.Self.UserName)
